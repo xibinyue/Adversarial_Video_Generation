@@ -7,6 +7,7 @@ import os
 import constants as c
 from tfutils import log10
 
+
 ##
 # Data
 ##
@@ -25,6 +26,7 @@ def normalize_frames(frames):
 
     return new_frames
 
+
 def denormalize_frames(frames):
     """
     Performs the inverse operation of normalize_frames.
@@ -40,6 +42,7 @@ def denormalize_frames(frames):
 
     return new_frames
 
+
 def clip_l2_diff(clip):
     """
     @param clip: A numpy array of shape [c.TRAIN_HEIGHT, c.TRAIN_WIDTH, (3 * (c.HIST_LEN + 1))].
@@ -53,6 +56,7 @@ def clip_l2_diff(clip):
         diff += np.sum(np.square(next_frame - frame))
 
     return diff
+
 
 def get_full_clips(data_dir, num_clips, num_rec_out=1):
     """
@@ -90,6 +94,7 @@ def get_full_clips(data_dir, num_clips, num_rec_out=1):
 
     return clips
 
+
 def process_clip():
     """
     Gets a clip from the train dataset, cropped randomly to c.TRAIN_HEIGHT x c.TRAIN_WIDTH.
@@ -112,6 +117,7 @@ def process_clip():
             break
 
     return cropped_clip
+
 
 def get_train_batch():
     """
@@ -172,6 +178,7 @@ def psnr_error(gen_frames, gt_frames):
 
     batch_errors = 10 * log10(1 / ((1 / num_pixels) * tf.reduce_sum(square_diff, [1, 2, 3])))
     return tf.reduce_mean(batch_errors)
+
 
 def sharp_diff_error(gen_frames, gt_frames):
     """
